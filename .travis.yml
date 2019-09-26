@@ -5,22 +5,16 @@ dist: trusty
 sudo: required
 
 addons:
-  firefox: latest
-  apt:
-    sources:
-     - google-chrome
-    packages:
-     - google-chrome-stable fluxbox
+  chrome: stable
 
 before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - fluxbox >/dev/null 2>&1 &
+  - LATEST_CHROMEDRIVER_VERSION=`curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE"`
+  - curl "https://chromedriver.storage.googleapis.com/${LATEST_CHROMEDRIVER_VERSION}/chromedriver_linux64.zip" -O
+  - unzip chromedriver_linux64.zip -d ~/bin
   - node server/index.js > server.txt & 
 
 services:
   - mongodb
-  - xvfb
 
 install:
   - cd jiff && npm install && cd ..
