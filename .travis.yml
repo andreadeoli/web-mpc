@@ -31,4 +31,6 @@ install:
   - npm install
 
 script:
-  - travis_wait 30 npm test
+  - while sleep 9m; do echo "=====[ $SECONDS seconds still running ]====="; done &
+  - npm test
+  - kill %1
