@@ -15,11 +15,11 @@
 
   "client": {
     "table_template": "data/bwwc",
-    "organization": "Boston Women's Workforce Council",
-    "subtitle": "100% Talent Data Submission",
-    "cohort": "Industry",
-    "session_key": "BWWC 2019 Submission ID",
-    "phone": "(617) 358-8517",
-    "email": "team@bostonwomensworkforcecouncil.org"
+    "organization": "Yale Department of Computer Science",
+    "subtitle": "Vote Submission",
+    "cohort": "Vote",
+    "session_key": "Election ID",
+    "phone": "(310)383-0016",
+    "email": "andrea.deoliveira@yale.edu"
   }
 }
