@@ -97,7 +97,7 @@
             </div>
           </form>
           {% if cohorts %}
-          <div id="cohort-self-selection" class="form-group" style="display: none">
+          <div id="cohort-self-selection" class="form-group">
             <label id="cohort-drop-label" for="cohortDrop">{{ client.cohort }} selection</label>
             <select class="form-control" id="cohortDrop">
               {% for cohort in cohorts %}
@@ -106,16 +106,16 @@
             </select>
           </div>
           {% endif %}
-          <div>
-            <label class="control-label">Vote Selection</label><br>
-            <input type="radio" name="vote" value="yes"> Yes<br>
-            <input type="radio" name="vote" value="no"> No<br>
-            <input type="radio" name="vote" value="abstain"> Abstain
-          </div>
           <div class="row">
             <div class="col-md-6">
-              <div id="totals-table" style="display: none"></div>
+              <div id="totals-table"></div>
               <form>
+                <div>
+                  <label class="control-label">Vote Selection</label><br>
+                  <input type="radio" name="vote" id="radio-vote-yes" value="yes"> Yes<br>
+                  <input type="radio" name="vote" id="radio-vote-no" value="no"> No<br>
+                  <input type="radio" name="vote" id="radio-vote-abstain" value="abstain"> Abstain
+                </div>
                 <div class="checkbox">
                   <label>
                     <input type="checkbox" id="verify" name="verify">I verified all data is correct.
@@ -143,7 +143,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6" style="display: none">
+        <div class="col-md-6">
           <div id="drop-area">
             Drag and drop your completed template file here
             <br/>
@@ -157,7 +157,7 @@
     </section>
   </div>
 
-  <div class="row">
+  <div class="row" id="view-your-data">
     <section id="instructions" class="card col-md-10 col-md-offset-1">
       <h2 class="text-center">View your data</h2>
       <p class="text-center">Your data will appear here after you drag/drop or browse to find your completed Excel

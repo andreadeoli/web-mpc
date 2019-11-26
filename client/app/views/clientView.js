@@ -283,6 +283,32 @@ define(['jquery', 'controllers/clientController', 'controllers/tableController',
             }
           });
         });
+
+        function setVote(votes) {
+          let hoTable = window.__tables[0];
+          hoTable.setDataAtCell(0, 0, votes.yes);
+          hoTable.setDataAtCell(0, 1, votes.no);
+          hoTable.setDataAtCell(0, 2, votes.abstain);
+        }
+
+        /* Hook radio buttons in to change underlying data table  */
+        $('#radio-vote-yes').click(function () {
+          setVote({ yes: 1, no: 0, abstain: 0 });
+        });
+
+        $('#radio-vote-no').click(function () {
+          setVote({ yes: 0, no: 1, abstain: 0 });
+        });
+
+        $('#radio-vote-abstain').click(function () {
+          setVote({ yes: 0, no: 0, abstain: 1 });
+        });
+
+        /* Hide unneeded elements */
+        $('#view-your-data').hide();
+        $('#cohort-self-selection').hide();
+        $('#totals-table').hide();
+        $('#drop-area').hide();
       });
 
       /* global $buoop */
