@@ -136,6 +136,10 @@ define([], function () {
         'CELL_ERROR'
         ]
       }
-    ]
+    ],
+    'cohort_selection': true,
+    'cohorts': [
+      {name: 'Voters'},
+    ],
   }
 });
