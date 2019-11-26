@@ -106,6 +106,36 @@
             </select>
           </div>
           {% endif %}
+          <div class="row">
+            <div class="col-md-6">
+              <div id="totals-table" style="display: none"></div>
+              <form>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" id="verify" name="verify">I verified all data is correct.
+                  </label>
+                </div>
+              </form>
+            </div>
+            <div class="col-md-6">
+              <div id="errors">
+                <h4>Errors</h4>
+                <ul id="validation-errors" class="has-error">
+                  <li>No Errors!</li>
+                </ul>
+              </div>
+              <h4>Submission history</h4>
+              <ul id="submission-history">
+                <li>You have not submitted yet.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button type="submit" id="submit" class="btn btn-primary ladda-button btn-lg btn-block" disabled>Submit
+              </button>
+            </div>
+          </div>
         </div>
         <div class="col-md-6" style="display: none">
           <div id="drop-area">
@@ -155,47 +185,6 @@
       </div>
 
 
-    </section>
-  </div>
-
-
-  <div class="row">
-    <section id="review-and-submit" class="card col-md-10 col-md-offset-1">
-      <h2 class="text-center">Verify and submit your data</h2>
-      <p class="text-center">
-        Please ensure that all entered data is accurate.
-      </p>
-      <hr/>
-      <div class="row">
-        <div class="col-md-6">
-          <div id="totals-table"></div>
-          <form>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" id="verify" name="verify">I verified all data is correct.
-              </label>
-            </div>
-          </form>
-        </div>
-        <div class="col-md-6">
-          <div id="errors">
-            <h4>Errors</h4>
-            <ul id="validation-errors" class="has-error">
-              <li>No Errors!</li>
-            </ul>
-          </div>
-          <h4>Submission history</h4>
-          <ul id="submission-history">
-            <li>You have not submitted yet.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <button type="submit" id="submit" class="btn btn-primary ladda-button btn-lg btn-block" disabled>Submit
-          </button>
-        </div>
-      </div>
     </section>
   </div>
   <br/>
