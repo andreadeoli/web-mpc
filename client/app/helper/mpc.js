@@ -259,7 +259,7 @@ define([], function () {
         setOrAssign(averages, [cohort, table, row, col], cohortMean.toFixed(2));
       }
 
-      totalMean = totalMean.div(submitters['all'].length);
+      // totalMean = totalMean.div(submitters['all'].length);
       setOrAssign(averages, ['all', table, row, col], totalMean);
     }
 

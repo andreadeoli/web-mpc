@@ -39,6 +39,7 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
             if (result['hasUsability'] === true) {
               tableController.saveUsability(result['usability'], sessionKey, result['cohorts']);
             }
+            console.log(result);
             $('#tables-area').show();
             spinner.stop();
 
