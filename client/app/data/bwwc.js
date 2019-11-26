@@ -136,17 +136,6 @@ define([], function () {
         'CELL_ERROR'
         ]
       }
-    ],
-    'cohort_selection': true,
-    'cohorts': [
-      {name: 'Hard Hat (Utilities, Construction, Manufacturing, Wholesale Trade, Retail Trade)'},
-      {name: 'Information'},
-      {name: 'Finance and Insurance'},
-      {name: 'Professional, Scientific, Technological Services'},
-      {name: 'Administrative Services'},
-      {name: 'Educational Services'},
-      {name: 'Healthcare and Social Assistance'},
-      {name: 'Other Services (Except Public Administration)'}
     ]
   }
 });

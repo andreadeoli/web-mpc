@@ -60,12 +60,12 @@
       <h2 class="text-center">Input your data</h2>
       <p class="text-center">Please make sure your {{ client.session_key }} and participation code match the ones provided in the
         email
-        sent to you by the {{ client.organization }}. Drag and drop your completed template file to encrypt and include your submission in
+        sent to you by the {{ client.organization }}. Submit below to encrypt and include your vote in
         the
-        aggregate data.</p>
+        aggregate result.</p>
       <hr/>
       <div class="row">
-        <div class="col-md-6">
+        <div>
           <form>
             <div class="form-group">
               <label class="control-label" for="session">{{ client.session_key }}</label>
@@ -108,16 +108,6 @@
             </select>
           </div>
           {% endif %}
-        </div>
-        <div class="col-md-6">
-          <div id="drop-area">
-            Drag and drop your completed template file here
-            <br/>
-            <p>&mdash;or&mdash;</p><br/>
-            <button id="choose-file-button" class="btn btn-primary">Choose file</button>
-            <label id="file-name"></label>
-          </div>
-          <input type="file" id="choose-file" accept=".xlsx,.xls">
         </div>
       </div>
     </section>
