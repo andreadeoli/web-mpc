@@ -31,6 +31,8 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
             analystController.getExistingCohorts(sessionKey, sessionPass).then(function (cohortMapping) {
               tableController.saveTables(result['averages'], sessionKey, 'Averages', result['cohorts'], cohortMapping);
               tableController.saveTables(result['deviations'], sessionKey, 'Standard_Deviations', result['cohorts'], cohortMapping);
+              tableController.saveTables(result['sums'], sessionKey, 'Sums', result['cohorts'], cohortMapping);
+
             });
 
             if (result['hasQuestions'] === true) {
@@ -43,9 +45,9 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
             $('#tables-area').show();
             spinner.stop();
 
-            // Only display averages in the table
+            // Only display sums in the table
             tableController.createTableElems(table_template.tables, '#tables-area');
-            tableController.displayReadTable(result['averages']['all']);
+            tableController.displayReadTable(result['sums']['all']);
           });
         });
       }

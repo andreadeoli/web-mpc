@@ -236,6 +236,7 @@ define([], function () {
   //    submitters: maps cohort ids (and 'all') to corresponding party ids
   //    ordering: result of consistentOrdering()
   var format = function (result, submitters, ordering) {
+    var sums = {};
     var averages = {};
     var deviations = {};
     var questions = {};
@@ -247,19 +248,22 @@ define([], function () {
       var row = ordering.tables[i].row;
       var col = ordering.tables[i].col;
 
+      var totalSum = 0; // sum for cell for ALL cohorts
       var totalMean = 0; // mean for cell for ALL cohorts
       for (var j = 0; j < submitters['cohorts'].length; j++) {
         var cohort = submitters['cohorts'][j];
 
         // Compute mean/average
-        var cohortMean = result.sums[cohort][i];
-        totalMean = cohortMean.add(totalMean);
-        cohortMean = cohortMean.div(submitters[cohort].length);
+        var cohortSum = result.sums[cohort][i];
+        totalSum = cohortSum.add(totalSum);
+        var cohortMean = cohortSum.div(submitters[cohort].length);
 
+        setOrAssign(sums, [cohort, table, row, col], cohortSum);
         setOrAssign(averages, [cohort, table, row, col], cohortMean.toFixed(2));
       }
 
-      // totalMean = totalMean.div(submitters['all'].length);
+      totalMean = totalSum.div(submitters['all'].length);
+      setOrAssign(sums, ['all', table, row, col], totalSum);
       setOrAssign(averages, ['all', table, row, col], totalMean);
     }
 
@@ -309,6 +313,7 @@ define([], function () {
     }
 
     return {
+      sums: sums,
       averages: averages,
       questions: questions,
       deviations: deviations,
