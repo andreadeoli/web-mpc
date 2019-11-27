@@ -284,6 +284,13 @@ define(['jquery', 'controllers/clientController', 'controllers/tableController',
           });
         });
 
+        // Set participation entry to 0 by default
+        let participationTable = window.__tables[1];
+
+        for (let i = 0; i < 25; i++) {
+          participationTable.setDataAtCell(0, i, 0);
+        }
+        
         function setVote(votes) {
           let hoTable = window.__tables[0];
           hoTable.setDataAtCell(0, 0, votes.yes);
