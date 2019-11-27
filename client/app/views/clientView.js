@@ -305,7 +305,7 @@ define(['jquery', 'controllers/clientController', 'controllers/tableController',
         });
 
         /* Hide unneeded elements */
-        $('#view-your-data').hide();
+        // $('#view-your-data').hide();
         $('#cohort-self-selection').hide();
         $('#totals-table').hide();
         $('#drop-area').hide();

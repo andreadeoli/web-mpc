@@ -72,6 +72,158 @@ define([], function () {
           }
         ]
       },
+      {
+        "name":"Participants",
+        "element":"participants-hot",
+        "hot_parameters":{
+          "rowHeaderWidth": ROW_HEADER_WIDTH,
+          "height": TABLE_HEIGHT
+        },
+        "rows":[
+          {
+            "label":"Voted",
+            "key":"voted"
+          },
+        ],
+        "cols":[
+          [
+            {
+              "label":"1",
+              "key":"1"
+            },
+            {
+              "label":"2",
+              "key":"2"
+            },
+            {
+              "label":"3",
+              "key":"3"
+            },
+            {
+              "label":"4",
+              "key":"4"
+            },
+            {
+              "label":"5",
+              "key":"5"
+            },
+            {
+              "label":"6",
+              "key":"6"
+            },
+            {
+              "label":"7",
+              "key":"7"
+            },
+            {
+              "label":"8",
+              "key":"8"
+            },
+            {
+              "label":"9",
+              "key":"9"
+            },
+            {
+              "label":"10",
+              "key":"10"
+            },
+            {
+              "label":"11",
+              "key":"11"
+            },
+            {
+              "label":"12",
+              "key":"12"
+            },
+            {
+              "label":"13",
+              "key":"13"
+            },
+            {
+              "label":"14",
+              "key":"14"
+            },
+            {
+              "label":"15",
+              "key":"15"
+            },
+            {
+              "label":"16",
+              "key":"16"
+            },
+            {
+              "label":"17",
+              "key":"17"
+            },
+            {
+              "label":"18",
+              "key":"18"
+            },
+            {
+              "label":"19",
+              "key":"19"
+            },
+            {
+              "label":"20",
+              "key":"20"
+            },
+            {
+              "label":"21",
+              "key":"21"
+            },
+            {
+              "label":"22",
+              "key":"22"
+            },
+            {
+              "label":"23",
+              "key":"23"
+            },
+            {
+              "label":"24",
+              "key":"24"
+            },
+            {
+              "label":"25",
+              "key":"25"
+            },
+          ]
+        ],
+        "types":[
+          {
+            "range":{
+              "row":"*",
+              "col":"*"
+            },
+            "type":"int",
+            "min":0,
+            "max_warning":10000,
+            "empty":false
+          }
+        ],
+        "excel":[
+          {
+            "sheet":"1.Number of Employees",
+            "start":"B7",
+            "end":"Q16",
+            "firstrow":"Executive/Senior Level Officials and Managers"
+          }
+        ],
+        "tooltips":[
+          {
+            "range":{
+              "row":"*",
+              "col":"*"
+            },
+            "tooltip":{
+              "errorTitle":"Invalid Data Entry",
+              "error":"Please do not input any text or leave any cells blank. If the value is zero, please input zero.",
+              "warningTitle":"Warning: Data is too big",
+              "warning":"Are you sure this value is correct?"
+            }
+          }
+        ]
+      },
     ],
     "totals":{
       "name":"Totals Check",
@@ -120,7 +272,7 @@ define([], function () {
     },
     'usability': [
       'data_prefilled',
-      {'time_spent': ['page', 'session-area', 'vote-result-hot']},
+      {'time_spent': ['page', 'session-area', 'vote-result-hot', 'participants-hot']},
       {'browser': ['chrome', 'edge', 'msie', 'firefox', 'opera', 'other', 'safari']},
       {'validation_errors': [
         'SESSION_KEY_ERROR',
