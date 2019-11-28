@@ -41,5 +41,7 @@ module.exports = [
   { url: '/add_cohort', route: clientURLsRoutes.createNewCohort, validation: validation.createNewCohort, authentication: auth.password },
   { url: '/get_cohorts_manage', route: clientURLsRoutes.getCohorts, validation: validation.getCohortsManage, authentication: auth.password},
   { url: '/generate_client_urls', route: clientURLsRoutes.createClientUrls, validation: validation.createClientUrls, authentication: auth.password },
-  { url: '/get_client_urls', route: clientURLsRoutes.getClientUrls, validation: validation.getClientUrls, authentication: auth.password }
+  { url: '/get_client_urls', route: clientURLsRoutes.getClientUrls, validation: validation.getClientUrls, authentication: auth.password },
+  { url: '/get_participant_info', route: clientURLsRoutes.getParticipantInfo, validation: validation.getClientUrls, authentication: auth.password }
+
 ];

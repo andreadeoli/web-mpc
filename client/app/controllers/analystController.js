@@ -124,12 +124,12 @@ define(['pki', 'alertHandler'], function (pki, alertHandler) {
   function getExistingParticipants(session, password) {
     return $.ajax({
       type: 'POST',
-      url: '/get_client_urls',
+      url: '/get_participant_info',
       contentType: 'application/json',
       data: JSON.stringify({session: session, password: password})
     })
       .then(function (resp) {
-        return formatUrls(resp.result);
+        return resp.result;
       })
       .catch(function (err) {
         throw new Error(err.responseText);

@@ -82,6 +82,28 @@ module.exports.getClientUrls = function (context, body, res) {
   });
 };
 
+// endpoint for returning participant info
+module.exports.getParticipantInfo = function (context, body, res) {
+  // Password verified already by authentication!
+  var promise = modelWrappers.UserKey.query(body.session);
+
+  promise.then(function (data) {
+    var participantInfo = {};
+    for (var d of data) {
+      var cohort = table_template.cohort_selection === true ? 0 : d.cohort;
+      var arr = participantInfo[cohort] == null ? [] : participantInfo[cohort];
+      arr.push({ userkey: d.userkey, email: d.email, name: d.name });
+      participantInfo[cohort] = arr;
+    }
+
+    console.log('Participant info fetched:', body.session);
+    res.json({ result: participantInfo });
+  }).catch(function (err) {
+    console.log('Error in getting participant info', err);
+    res.status(500).send('Error getting participation codes.')
+  });
+};
+
 // endpoint for creating new client urls
 module.exports.createClientUrls = function (context, body, response, sessionInfoObj) {
   var cohortId = body.cohort;

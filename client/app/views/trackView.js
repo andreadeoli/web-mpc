@@ -23,9 +23,18 @@ define(['jquery', 'controllers/analystController', 'table_template', 'Ladda', 'f
       var la = Ladda.create(document.getElementById('login'));
       la.start();
 
-      var urlsPromise = analystController.getExistingParticipants(session, password);
+      let participantPromise = analystController.getExistingParticipants(session, password)
+        .then(participantInfo => {
+          let piMap = {};
+          for (let cohort in participantInfo) {
+            piMap[cohort] = participantInfo[cohort] !== null
+              ? participantInfo[cohort].map(pi => pi.name + ", " + pi.email)
+              : [];
+          }
+          return piMap;
+        });
       var statusPromise = analystController.checkStatus(session, password);
-      Promise.all([urlsPromise, statusPromise]).then(function (results) {
+      Promise.all([participantPromise, statusPromise]).then(function (results) {
         // Only logs in if both requests succeed
         var existingParticipants = results[0];
         var status = results[1];
