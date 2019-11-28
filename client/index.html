@@ -19,7 +19,6 @@
 
   <script data-main="app/index" src="app/vendor/require.js"></script>
   <script type="text/javascript" src="app/helper/array.reduce-polyfill.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <script src="/jiff/jiff-client.js"></script>
   <script src="/jiff/ext/jiff-client-bignumber.js"></script>
@@ -109,7 +108,7 @@
           {% endif %}
           <div class="row">
             <div class="col-md-6">
-              <div id="totals-table" onload="$(this).hide()"></div>
+              <div id="totals-table"></div>
               <form>
                 <div>
                   <label class="control-label">Vote Selection</label><br>

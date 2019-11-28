@@ -64,12 +64,6 @@ define(['jquery', 'controllers/clientController', 'controllers/tableController',
 
     function clientControllerView() {
       $(document).ready(function () {
-        /* Hide unneeded elements */
-        $('#drop-area').hide();
-        $('#view-your-data').hide();
-        $('#cohort-self-selection').hide();
-        $('#totals-table').hide();
-
         tableController.createTableElems(table_template.tables, '#tables-area');
 
         displaySurveyQuestions();
@@ -307,6 +301,12 @@ define(['jquery', 'controllers/clientController', 'controllers/tableController',
         $('#radio-vote-abstain').click(function () {
           setVote({ yes: 0, no: 0, abstain: 1 });
         });
+
+        /* Hide unneeded elements */
+        $('#drop-area').hide();
+        $('#view-your-data').hide();
+        $('#cohort-self-selection').hide();
+        $('#totals-table').hide();
       });
 
       /* global $buoop */

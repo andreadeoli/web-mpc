@@ -120,7 +120,7 @@ define([], function () {
     },
     'usability': [
       'data_prefilled',
-      {'time_spent': ['page', 'session-area', 'vote-result-hot', 'participants-hot']},
+      {'time_spent': ['page', 'session-area', 'vote-result-hot']},
       {'browser': ['chrome', 'edge', 'msie', 'firefox', 'opera', 'other', 'safari']},
       {'validation_errors': [
         'SESSION_KEY_ERROR',
