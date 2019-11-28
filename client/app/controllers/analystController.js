@@ -177,14 +177,31 @@ define(['pki', 'alertHandler'], function (pki, alertHandler) {
       contentType: 'application/json',
       data: JSON.stringify({session: session, password: password, last_fetch: timestamp}),
     })
-    .then(function (res) {
-      return res;
+      .then(function (res) {
+        return res;
+      })
+      .catch(function (err) {
+        if (err && err.hasOwnProperty('responseText') && err.responseText !== undefined) {
+          alertHandler.error(err.responseText);
+        }
+      });
+  }
+
+  function getVotingRecord(session, password) {
+    return $.ajax({
+      type: 'POST',
+      url: '/get_voting_record',
+      contentType: 'application/json',
+      data: JSON.stringify({session: session, password: password}),
     })
-    .catch(function (err) {
-      if (err && err.hasOwnProperty('responseText') && err.responseText !== undefined) {
-        alertHandler.error(err.responseText);
-      }
-    });
+      .then(function (res) {
+        return res;
+      })
+      .catch(function (err) {
+        if (err && err.hasOwnProperty('responseText') && err.responseText !== undefined) {
+          alertHandler.error(err.responseText);
+        }
+      });
   }
 
   function getParameterByName(name) {
@@ -197,6 +214,7 @@ define(['pki', 'alertHandler'], function (pki, alertHandler) {
   return {
     checkStatus: checkStatus,
     changeStatus: changeStatus,
+    getVotingRecord: getVotingRecord,
     generateNewParticipationCodes: generateNewParticipationCodes,
     getExistingParticipants: getExistingParticipants,
     getExistingCohorts: getExistingCohorts,

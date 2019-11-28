@@ -107,3 +107,14 @@ module.exports.getSubmissionHistory = function (context, body, res) {
     res.status(500).send('Failed to fetch contributors.');
   });
 };
+
+module.exports.getVotingRecord = function (context, body, res) {
+  var promise = modelWrappers.VotingRecord.get(body.session);
+  promise.then(function(data) {
+    var enc_keys = [];
+    for (let d of data) {
+      enc_keys.push(d.enc_userkey);
+    }
+    res.json(enc_keys);
+  });
+};

@@ -48,6 +48,25 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
             // Only display sums in the table
             tableController.createTableElems(table_template.tables, '#tables-area');
             tableController.displayReadTable(result['sums']['all']);
+
+            let votersPromise = analystController.getVotingRecord(sessionKey, sessionPass);
+            let voterInfoPromise = analystController.getExistingParticipants(sessionKey, sessionPass);
+            Promise.all([votersPromise, voterInfoPromise]).then(function (datas) {
+              let voterKeys = datas[0];
+              let participantInfos = datas[1];
+              let nameEmailStrings = [];
+              for (let cohort in participantInfos) {
+                if (participantInfos[cohort] != null) {
+                  for(let i = 0; i < participantInfos[cohort].length; i++) {
+                    let elem = participantInfos[cohort][i];
+                    if(voterKeys.indexOf(elem.userkey) >= 0) {
+                      nameEmailStrings.push(elem.name + ", " + elem.email);
+                    }
+                  }
+                }
+              }
+              console.log(nameEmailStrings);
+            });
           });
         });
       }

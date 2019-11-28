@@ -92,7 +92,7 @@ module.exports.getParticipantInfo = function (context, body, res) {
     for (var d of data) {
       var cohort = table_template.cohort_selection === true ? 0 : d.cohort;
       var arr = participantInfo[cohort] == null ? [] : participantInfo[cohort];
-      arr.push({ userkey: d.userkey, email: d.email, name: d.name });
+      arr.push({userkey: d.userkey, email: d.email, name: d.name });
       participantInfo[cohort] = arr;
     }
 

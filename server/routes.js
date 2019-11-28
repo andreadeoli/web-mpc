@@ -36,6 +36,7 @@ module.exports = [
   { url: '/fetch_status', route: sessionStatusRoutes.getStatus, validation: validation.getStatus },
   { url: '/change_status', route: sessionStatusRoutes.setStatus, validation: validation.setStatus, authentication: auth.password },
   { url: '/get_history', route: sessionStatusRoutes.getSubmissionHistory, validation: validation.getSubmissionHistory, authentication: auth.password },
+  { url: '/get_voting_record', route: sessionStatusRoutes.getVotingRecord, validation: validation.getCohortsManage, authentication: auth.password },
 
   // Routes to generate and query (client urls / user keys / participation code)
   { url: '/add_cohort', route: clientURLsRoutes.createNewCohort, validation: validation.createNewCohort, authentication: auth.password },
@@ -43,5 +44,4 @@ module.exports = [
   { url: '/generate_client_urls', route: clientURLsRoutes.createClientUrls, validation: validation.createClientUrls, authentication: auth.password },
   { url: '/get_client_urls', route: clientURLsRoutes.getClientUrls, validation: validation.getClientUrls, authentication: auth.password },
   { url: '/get_participant_info', route: clientURLsRoutes.getParticipantInfo, validation: validation.getClientUrls, authentication: auth.password }
-
 ];
