@@ -108,7 +108,7 @@ define(['jquery', 'controllers/analystController', 'table_template', 'Ladda', 'f
     });
 
     function createAndEnableDownloadBtn(cohort) {
-      var btn = $('<div class="form-group"><button type="submit" id="participants-download-'+ cohort +'" class="btn btn-primary btn-block">Download Participant Links</button></div>');
+      var btn = $('<div class="form-group"><button type="submit" id="participants-download-'+ cohort +'" class="btn btn-primary btn-block">Download Participant Info</button></div>');
       $('#cohort-' + cohort).append(btn);
       $('#participants-download-' + cohort).on('click', function (e) {
         var allLinks = [];
@@ -348,7 +348,7 @@ define(['jquery', 'controllers/analystController', 'table_template', 'Ladda', 'f
         .append('<pre id="participants-new-' + cohortId + '" class="hidden"></pre>')
         .append('<hr/>')
         .append('<h2 class="text-center">Existing participants</h2>')
-        .append('<p class-"text-center">View the list of existing participation URLS.</p>')
+        .append('<p class-"text-center">View a list of existing participant names and emals.</p>')
         .append('<pre id="participants-existing-' + cohortId + '">No existing participants found</pre>');
 
       return $cohortSection;
