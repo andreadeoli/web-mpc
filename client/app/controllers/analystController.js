@@ -95,7 +95,7 @@ define(['pki', 'alertHandler'], function (pki, alertHandler) {
         const resultingInfos = {};
         resultingInfos[res.cohort] = [];
         for (let i = 0; i < res.result.length; i++) {
-          resultingInfos[res.cohort].push(res.result[i].email);
+          resultingInfos[res.cohort].push(res.result[i].name + ", " + res.result[i].email);
         }
         return resultingInfos;
       })
