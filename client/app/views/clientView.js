@@ -64,7 +64,11 @@ define(['jquery', 'controllers/clientController', 'controllers/tableController',
 
     function clientControllerView() {
       $(document).ready(function () {
-        // Hide by default
+        /* Hide unneeded elements */
+        $('#drop-area').hide();
+        $('#view-your-data').hide();
+        $('#cohort-self-selection').hide();
+        $('#totals-table').hide();
 
         tableController.createTableElems(table_template.tables, '#tables-area');
 
@@ -284,13 +288,6 @@ define(['jquery', 'controllers/clientController', 'controllers/tableController',
           });
         });
 
-        // Set participation entry to 0 by default
-        let participationTable = window.__tables[1];
-
-        for (let i = 0; i < 25; i++) {
-          participationTable.setDataAtCell(0, i, 0);
-        }
-
         function setVote(votes) {
           let hoTable = window.__tables[0];
           hoTable.setDataAtCell(0, 0, votes.yes);
@@ -310,12 +307,6 @@ define(['jquery', 'controllers/clientController', 'controllers/tableController',
         $('#radio-vote-abstain').click(function () {
           setVote({ yes: 0, no: 0, abstain: 1 });
         });
-
-        /* Hide unneeded elements */
-        // $('#view-your-data').hide();
-        $('#cohort-self-selection').hide();
-        $('#totals-table').hide();
-        $('#drop-area').hide();
       });
 
       /* global $buoop */
