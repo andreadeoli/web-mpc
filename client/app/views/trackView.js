@@ -225,16 +225,16 @@ define(['jquery', 'controllers/analystController', 'table_template', 'Ladda', 'f
       counter.html(parseInt(counter.html()) + resubmissionCount);
     }
 
-    // TODO: Email Validation
     function isValidEmail(email) {
-      return true;
+      let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).trim().toLowerCase());
     }
 
     function parseParticipantInfo(participantInfoStr) {
       let parsed = [];
       let lines = participantInfoStr.split("\n");
-      if (lines.length === 0) return -1;
       for (let i = 0; i < lines.length; i++) {
+        if (lines[i].trim() === "") continue;
         let nameEmail = lines[i].split(",");
         if (nameEmail.length !== 2 || !isValidEmail(nameEmail[1]))
           return -1;
@@ -254,6 +254,16 @@ define(['jquery', 'controllers/analystController', 'table_template', 'Ladda', 'f
         la.start();
 
         let participantInfo = parseParticipantInfo(document.getElementById("participant-info").value);
+
+        if (participantInfo === -1) {
+          alertHandler.error("Could not parse the participant info, please follow the specified format.");
+          la.stop();
+          return;
+        } else if (participantInfo.length === 0) {
+          alertHandler.error("Please enter at least one new participant.");
+          la.stop();
+          return;
+        }
 
         analystController.generateNewParticipationCodes(session, password, participantInfo, cohortId)
           .then(function (res) {
@@ -328,7 +338,7 @@ define(['jquery', 'controllers/analystController', 'table_template', 'Ladda', 'f
       var $form = $('<form>');
       var $participants = $('<div>', {class: 'form-group'})
         .append('<label class="control-label" for="participants-count">New participants</label>')
-        .append('<textarea id="participant-info" class="form-control" rows="10" placeholder="Pelican Steve, pelican.steve@yale.edu\nGunther Beard, gunther.beard@yale.edu" maxlength="4096"></textarea>')
+        .append('<textarea id="participant-info" class="form-control" rows="10" style="font-size: 11px;" placeholder="John Doe, john.doe@yale.edu\nJane Doe, jane.doe@yale.edu" maxlength="4096"></textarea>')
         .append('<span id="new-participants-success" class="success-icon glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>')
         .append('<span id="new-participants-fail" class="fail-icon glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>')
         .append('<span id="new-participants-fail-help" class="fail-help help-block hidden">Please input participant names and email addresses.</span>');
