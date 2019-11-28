@@ -65,7 +65,11 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
                   }
                 }
               }
-              console.log(nameEmailStrings);
+              var participantContainer = $('#participant-list');
+              for(let i = 0; i < nameEmailStrings.length; i++) {
+                $('<p>').text(nameEmailStrings[i])
+                  .appendTo(participantContainer);
+              }
             });
           });
         });
