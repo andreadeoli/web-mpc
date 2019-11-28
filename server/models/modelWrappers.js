@@ -163,6 +163,39 @@ var insertManyUserKey = function (array) {
 };
 
 /**
+ * VOTING RECORD MODEL
+ */
+// find voters corresponding to a session key
+var getVotingRecord = function (session_key) {
+  return new Promise(function (resolve, reject) {
+    models.VotingRecord.findAll({ session_id: session_key }, function (err, data) {
+      if (err) {
+        reject(err);
+      } else {
+        // TODO: maybe post process here
+        resolve(data);
+      }
+    });
+  });
+};
+
+// insert voter into record
+var insertVotingRecord = function (session_key, user_key) {
+  let obj = {session: session_key, enc_userkey: user_key};
+  obj['_id'] = obj.session + obj.enc_userkey;
+  let votingRecord = new models.VotingRecord(obj);
+  return new Promise(function (resolve, reject) {
+    votingRecord.save(function (err) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+};
+
+/**
  * MAIL BOX MODEL
  */
 // upsert (update or insert) into mailbox
@@ -227,6 +260,10 @@ module.exports = {
     get: getUserKey,
     query: queryUserKey,
     insertMany: insertManyUserKey
+  },
+  VotingRecord: {
+    get: getVotingRecord,
+    insert: insertVotingRecord
   },
   Mailbox: {
     upsert: upsertMailbox,

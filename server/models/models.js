@@ -52,8 +52,15 @@ const UserKeyModel = mongoose.model('UserKey', new mongoose.Schema({
   _id: String, // concat of session + userkey.
   session: String,
   userkey: String,
+  name: String,
+  email: String,
   jiff_party_id: Number,
   cohort: Number,
+}));
+const VotingRecord = mongoose.model('VotingRecord', new mongoose.Schema({
+  _id: String, // concat of session + enc_userkey.
+  session: String,
+  enc_userkey: String,
 }));
 
 // Export models
@@ -61,5 +68,6 @@ module.exports = {
   History: HistoryModel,
   Mailbox: MailboxModel,
   SessionInfo: SessionInfoModel,
-  UserKey: UserKeyModel
+  UserKey: UserKeyModel,
+  VotingRecord: VotingRecord
 };

@@ -8,6 +8,7 @@ const mpc = require('../../client/app/helper/mpc.js');
 
 const mailbox_hooks = require('./mailbox.js');
 const authentication_hooks = require('./auth.js');
+const submission_tracker_hooks = require('./submissiontracker');
 
 const MAX_SIZE = config.MAX_SIZE;
 
@@ -39,6 +40,8 @@ const computeOptions = {
   }
 };
 options.hooks = Object.assign(options.hooks, mailbox_hooks, authentication_hooks, cryptoHooks);
+options.hooks['beforeOperation'].push(submission_tracker_hooks.beforeOperation);
+
 
 // In particular, load session keys and public keys, and use initializeSession below
 // to initialize the sessions.
