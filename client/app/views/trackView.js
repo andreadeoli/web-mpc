@@ -216,6 +216,27 @@ define(['jquery', 'controllers/analystController', 'table_template', 'Ladda', 'f
       counter.html(parseInt(counter.html()) + resubmissionCount);
     }
 
+    // TODO: Email Validation
+    function isValidEmail(email) {
+      return true;
+    }
+
+    function parseParticipantInfo(participantInfoStr) {
+      let parsed = [];
+      let lines = participantInfoStr.split("\n");
+      if (lines.length === 0) return -1;
+      for (let i = 0; i < lines.length; i++) {
+        let nameEmail = lines[i].split(",");
+        if (nameEmail.length !== 2 || !isValidEmail(nameEmail[1]))
+          return -1;
+        parsed.push({
+          name: nameEmail[0].trim(),
+          email: nameEmail[1].trim()
+        });
+      }
+      return parsed;
+    }
+
     function enableCohortSubmit(cohortId) {
       $('#participants-submit-' + cohortId).on('click', function (e) {
         e.preventDefault();
@@ -223,9 +244,9 @@ define(['jquery', 'controllers/analystController', 'table_template', 'Ladda', 'f
         var la = Ladda.create(document.getElementById('participants-submit-' + cohortId));
         la.start();
 
-        var count = $('#participants-count-' + cohortId).val();
+        let participantInfo = parseParticipantInfo(document.getElementById("participant-info").value);
 
-        analystController.generateNewParticipationCodes(session, password, count, cohortId)
+        analystController.generateNewParticipationCodes(session, password, participantInfo, cohortId)
           .then(function (res) {
 
             var $newParticipants = $('#participants-new-' + cohortId);
@@ -298,21 +319,20 @@ define(['jquery', 'controllers/analystController', 'table_template', 'Ladda', 'f
       var $form = $('<form>');
       var $participants = $('<div>', {class: 'form-group'})
         .append('<label class="control-label" for="participants-count">New participants</label>')
-        .append('<input type="number" id="participants-count-' + cohortId + '" class="form-control" placeholder="0" pattern="^[1-9]\d*{1,5}$" autocomplete="off" required/>')
+        .append('<textarea id="participant-info" class="form-control" rows="10" placeholder="Pelican Steve, pelican.steve@yale.edu\nGunther Beard, gunther.beard@yale.edu" maxlength="4096"></textarea>')
         .append('<span id="new-participants-success" class="success-icon glyphicon glyphicon-ok form-control-feedback hidden" aria-hidden="true"></span>')
         .append('<span id="new-participants-fail" class="fail-icon glyphicon glyphicon-remove form-control-feedback hidden" aria-hidden="true"></span>')
-        .append('<span id="new-participants-fail-help" class="fail-help help-block hidden">Please input a digit smaller than 100.000</span>')
-        .append('<span id="new-participants-fail-custom-help" class="fail-custom help-block hidden"></span>');
+        .append('<span id="new-participants-fail-help" class="fail-help help-block hidden">Please input participant names and email addresses.</span>');
 
       var $submitBtn = $('<div>', {class: 'form-group'})
-        .append('<button type="submit" id="participants-submit-' + cohortId + '"  class="btn btn-primary ladda-button btn-block">Submit</button>');
+        .append('<button type="submit" id="participants-submit-' + cohortId + '"  class="btn btn-primary ladda-button btn-block">Add Participants</button>');
 
       $form.append($participants);
       $form.append($submitBtn);
 
       var $cohortSection = $('<section>', {id: 'cohort-' + cohortId, class: 'col-md-4'})
         .append('<h2 class="text-center">Add Participants</h2>')
-        .append('<p class="text-center">Generate more URLs for new participants.</p>')
+        .append('<p class="text-center">Please enter participant names and email addresses in accordance with the format below.</p>')
         .append($form)
         .append('<hr id="participants-new-hr-' + cohortId + '" class="hidden"/>')
         .append('<h2 id="participants-new-h2-' + cohortId + '" class="text-center" style="display:none;">New participants</h2>')

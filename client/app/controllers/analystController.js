@@ -81,20 +81,23 @@ define(['pki', 'alertHandler'], function (pki, alertHandler) {
    *
    * @param {*} session
    * @param {*} password
-   * @param {*} count number of total links that should be generated
+   * @param {*} participantInfo [{name, email}]
    * @param {*} cohort
    */
-  function generateNewParticipationCodes(session, password, count, cohort) {
+  function generateNewParticipationCodes(session, password, participantInfo, cohort) {
     return $.ajax({
       type: 'POST',
       url: '/generate_client_urls',
       contentType: 'application/json',
-      data: JSON.stringify({cohort: cohort, count: count, session: session, password: password})
+      data: JSON.stringify({cohort: cohort, participantInfo: participantInfo, session: session, password: password})
     })
       .then(function (res) {
-        const urls = {};
-        urls[res.cohort] = res.result;
-        return formatUrls(urls);
+        const resultingInfos = {};
+        resultingInfos[res.cohort] = [];
+        for (let i = 0; i < res.result.length; i++) {
+          resultingInfos[res.cohort].push(res.result[i].email);
+        }
+        return resultingInfos;
       })
       .catch(function (err) {
         if (err && err.hasOwnProperty('responseText') && err.responseText !== undefined) {

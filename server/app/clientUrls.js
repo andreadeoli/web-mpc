@@ -89,7 +89,7 @@ module.exports.createClientUrls = function (context, body, response, sessionInfo
   var promise = modelWrappers.UserKey.query(body.session);
   promise.then(function (data) {
     var count = 1 + data.length; // starts at 1, because the first party is the analyst
-    if (body.count + count > MAX_SIZE) {
+    if (body.participantInfo.length + count > MAX_SIZE) {
       response.status(500).send('Maximum size exceeded by query, only ' + (MAX_SIZE - count) + ' parties can be added.');
       return;
     }
@@ -103,9 +103,10 @@ module.exports.createClientUrls = function (context, body, response, sessionInfo
     }
 
     // Create count many unique (per session) user keys.
-    var urls = [], dbObjs = [];
+    let resultingInfos = [], dbObjs = [];
+    let participantInfo = body.participantInfo;
 
-    for (var i = 0; i < Math.min(body.count, MAX_SIZE - count);) {
+    for (var i = 0; i < Math.min(participantInfo.length, MAX_SIZE - count);) {
       var userkey = helpers.generateRandomBase32();
 
       var jiff_party_id = context.jiff.serverInstance.helpers.random(MAX_SIZE - 1);
@@ -121,22 +122,29 @@ module.exports.createClientUrls = function (context, body, response, sessionInfo
       jiffIds[jiff_party_id] = true;
 
       // Generate URL and add dbObject
-      i++;
-      urls.push('?session=' + body.session + '&participationCode=' + userkey);
-
+      resultingInfos.push({
+        name: participantInfo[i].name,
+        email: participantInfo[i].email,
+        userkey: userkey,
+        session: body.session,
+        url: '?session=' + body.session + '&participationCode=' + userkey //TODO: remove
+      });
       dbObjs.push({
         session: body.session,
         userkey: userkey,
+        name: participantInfo[i].name,
+        email: participantInfo[i].email,
         jiff_party_id: jiff_party_id,
         cohort: cohortId
       });
+      i++;
     }
 
     // Save the userKeys into the db.
     var promise = modelWrappers.UserKey.insertMany(dbObjs);
     promise.then(function () {
-      console.log('URLs generated:', body.session, urls);
-      response.json({ result: urls, cohort: cohortId });
+      console.log('URLs generated:', body.session, resultingInfos);
+      response.json({ result: resultingInfos, cohort: cohortId });
     }).catch(function (err) {
       console.log('Error in inserting client urls', err);
       response.status(500).send('Error during storing keys.');
