@@ -43,6 +43,8 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
             }
             console.log(result);
             $('#tables-area').show();
+            $('#participant-list').show();
+
             spinner.stop();
 
             // Only display sums in the table
@@ -76,11 +78,11 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
       }
     }
 
-    function expandTable() {
-      var expand_button = $('#expand-table-button');
+    function expandTable(button, area) {
+      var expand_button = $(button);
 
       $(expand_button).click(function () {
-        var ta = $('#tables-area');
+        var ta = $(area);
         if (ta.css('display') === 'none') {
           ta.show();
         } else {
@@ -93,7 +95,9 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
     function unmaskView() {
       $(document).ready(function () {
         $('#tables-area').hide();
-        expandTable();
+        $('#participant-list').hide();
+        expandTable("#expand-table-button", '#tables-area');
+        expandTable("#expand-participant-list", '#participant-list');
 
         var _target = document.getElementById('drop-area');
         var _choose = document.getElementById('choose-file-button');

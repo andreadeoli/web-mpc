@@ -132,7 +132,18 @@ header #logos img:not(:first-child) {
   margin-top: 35px;
 }
 
+#expand-participant-list {
+  width: 100%;
+  height: 35px;
+  display: block;
+  margin-top: 35px;
+}
+
 #expand-table-button:hover {
+  background-color: #F3F3F3;
+}
+
+#expand-participant-list:hover {
   background-color: #F3F3F3;
 }
 
