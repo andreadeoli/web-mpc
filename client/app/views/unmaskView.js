@@ -1,7 +1,7 @@
 /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
-define(['jquery', 'controllers/jiffController', 'controllers/tableController', 'controllers/analystController', 'helper/drop_sheet', 'alertHandler', 'table_template', 'spin'],
-  function ($, jiffController, tableController, analystController, DropSheet, alertHandler, table_template, Spinner) {
+define(['jquery', 'controllers/jiffController', 'controllers/tableController', 'controllers/analystController', 'helper/drop_sheet', 'alertHandler', 'table_template', 'spin', 'forge'],
+  function ($, jiffController, tableController, analystController, DropSheet, alertHandler, table_template, Spinner, forge) {
     function error(msg) {
       alertHandler.error(msg);
     }
@@ -54,7 +54,7 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
             let votersPromise = analystController.getVotingRecord(sessionKey, sessionPass);
             let voterInfoPromise = analystController.getExistingParticipants(sessionKey, sessionPass);
             Promise.all([votersPromise, voterInfoPromise]).then(function (datas) {
-              let voterKeys = datas[0];
+              let voterKeys = datas[0].map(enc => decryptUserKeyString(privateKey, enc));
               let participantInfos = datas[1];
               let nameEmailStrings = [];
               for (let cohort in participantInfos) {
@@ -76,6 +76,11 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
           });
         });
       }
+    }
+
+    function decryptUserKeyString(privateKeyStr, encryptedUserKey) {
+      let pk = forge.pki.privateKeyFromPem(privateKeyStr);
+      return pk.decrypt(encryptedUserKey, 'RSA-OAEP', { md: forge.md.sha256.create() });
     }
 
     function expandTable(button, area) {
