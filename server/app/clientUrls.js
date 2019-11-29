@@ -7,8 +7,8 @@
 const modelWrappers = require('../models/modelWrappers.js');
 const config = require('../config/config.js');
 const helpers = require('./helpers.js');
+const emailHelper = require('./emailHelper.js');
 const table_template = require('../../client/app/' + config.client.table_template + '.js');
-const nodemailer = require('nodemailer');
 
 const MAX_SIZE = config.MAX_SIZE;
 
@@ -144,36 +144,18 @@ module.exports.createClientUrls = function (context, body, response, sessionInfo
       userKeys[userkey] = true;
       jiffIds[jiff_party_id] = true;
 
-      let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: process.env.MODERATOR_EMAIL_USER,
-          pass: process.env.MODERATOR_EMAIL_PASS
-        }
-      });
-
-      let mailOptions = {
-        from: process.env.MODERATOR_EMAIL_USER,
-        to: participantInfo[i].email,
-        subject: 'Election Participation URL',
-        text: "Hello " + participantInfo[i].name
-      };
-
-      transporter.sendMail(mailOptions, function(error, info){
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
+      let name = participantInfo[i].name;
+      let email = participantInfo[i].email;
+      let url = '?session=' + body.session + '&participationCode=' + userkey;
+      emailHelper.sendEmail(name, email, url);
 
       // Generate URL and add dbObject
       resultingInfos.push({
-        name: participantInfo[i].name,
-        email: participantInfo[i].email,
+        name: name,
+        email: email,
         userkey: userkey,
         session: body.session,
-        url: '?session=' + body.session + '&participationCode=' + userkey //TODO: remove
+        url: url
       });
       dbObjs.push({
         session: body.session,
