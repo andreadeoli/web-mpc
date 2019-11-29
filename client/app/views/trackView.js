@@ -1,5 +1,4 @@
 define(['jquery', 'controllers/analystController', 'table_template', 'Ladda', 'filesaver', 'alertHandler', 'bootstrap'], function ($, analystController, tableTemplate, Ladda, filesaver, alertHandler) {
-
   function trackView() {
     var SELF_SELECT = false;
     var session, password;
