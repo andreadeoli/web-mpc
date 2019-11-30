@@ -20,7 +20,9 @@ define(['jquery', 'controllers/analystController', 'alertHandler', 'filesaver', 
         la.start();
         var title = document.getElementById('session-title').value;
         var description = document.getElementById('session-description').value;
-        var result = analystController.generateSession(title, description);
+        var time = document.getElementById('session-duration').value;
+
+        var result = analystController.generateSession(title, description, time);
         if (result == null) {
           la.stop();
         } else {

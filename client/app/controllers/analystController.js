@@ -136,9 +136,9 @@ define(['pki', 'alertHandler'], function (pki, alertHandler) {
       });
   }
 
-  function generateSession(title, description) {
-    if (title == null || description == null || title === '' || description === '') {
-      alertHandler.error('Session title and description are required');
+  function generateSession(title, description, time) {
+    if (title == null || description == null || time == null || title === '' || description === '' || time === '') {
+      alertHandler.error('Session title, description, and duration are required');
       return null;
     }
 
@@ -150,7 +150,7 @@ define(['pki', 'alertHandler'], function (pki, alertHandler) {
         type: 'POST',
         url: '/create_session',
         contentType: 'application/json',
-        data: JSON.stringify({publickey: publicKey, title: title, description: description})
+        data: JSON.stringify({publickey: publicKey, title: title, description: description, time: time})
       })
       .then(function (resp) {
         return {

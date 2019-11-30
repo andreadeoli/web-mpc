@@ -16,7 +16,7 @@ module.exports.createEmptySession = async function (driver) {
   await driver.wait(until.elementIsEnabled(alertifyError));
   await driver.wait(until.elementIsVisible(alertifyError));
   await alertifyError.click();
-}
+};
 
 // create session
 module.exports.createSession = async function (driver, title='test session', description='testing') {
@@ -24,6 +24,7 @@ module.exports.createSession = async function (driver, title='test session', des
 
   const titleField = await driver.findElement(By.id('session-title'));
   const descField = await driver.findElement(By.id('session-description'));
+  const timeField = await driver.findElement(By.id('session-duration'));
   const generateButton = await driver.findElement(By.id('generate'));
 
   const sessionField = await driver.findElement(By.id('sessionID'));
@@ -32,6 +33,7 @@ module.exports.createSession = async function (driver, title='test session', des
   // create session
   await titleField.sendKeys(title);
   await descField.sendKeys(description);
+  await timeField.sendKeys(timeField);
   generateButton.click();
 
   // read session information

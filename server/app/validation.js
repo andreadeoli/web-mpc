@@ -30,7 +30,8 @@ module.exports = {
   createSession: { // TODO: should be more restrictive here
     publickey: joi.string().required(),
     title: joi.string().required(),
-    description: joi.string().required()
+    description: joi.string().required(),
+    time: joi.string().required()
   },
 
   getCohorts: {
