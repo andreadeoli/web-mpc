@@ -46,7 +46,7 @@ var insertHistory = function (session_key, jiff_party_id, success) {
  * SESSION INFO MODEL
  */
 // insert new session
-var insertSessionInfo = function (session_key, public_key, password, title, description, cohortMapping) {
+var insertSessionInfo = function (session_key, public_key, password, title, description, time, cohortMapping) {
   var sessionInfo = new models.SessionInfo({
     _id: session_key,
     session: session_key,
@@ -54,6 +54,7 @@ var insertSessionInfo = function (session_key, public_key, password, title, desc
     password: password,
     title: title,
     description: description,
+    time: time,
     status: 'PAUSE',
     cohort_mapping: cohortMapping,
     cohorts: cohortMapping.length + 1

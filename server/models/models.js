@@ -44,6 +44,7 @@ const SessionInfoModel = mongoose.model('SessionInfo', new mongoose.Schema({
   password: String,
   title: String,
   description: String,
+  time: Date,
   status: String,
   cohorts: Number,
   cohort_mapping: [cohortMappingSchema]
