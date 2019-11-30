@@ -19,6 +19,14 @@ define(['jquery', 'controllers/analystController', 'table_template', 'Ladda', 'f
         return;
       }
 
+      setInterval(function () {
+        analystController.checkStatus(session, password).then(function (sessionInfo) {
+          if (sessionInfo.status === 'STOP') {
+            changeStatusButtons('STOP');
+          }
+        });
+      }, 2000);
+
       var la = Ladda.create(document.getElementById('login'));
       la.start();
 

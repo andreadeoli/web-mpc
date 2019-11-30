@@ -22,7 +22,7 @@ module.exports.sendEmail = function (session, email, url) {
       html: format(HTML, {
         title: data.title,
         description: data.description,
-        time: data.time,
+        time: data.time.toUTCString(),
         url: process.env.URL_BASE + url
       }),
     };
