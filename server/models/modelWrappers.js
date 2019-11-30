@@ -55,7 +55,7 @@ var insertSessionInfo = function (session_key, public_key, password, title, desc
     title: title,
     description: description,
     time: time,
-    status: 'PAUSE',
+    status: 'START',
     cohort_mapping: cohortMapping,
     cohorts: cohortMapping.length + 1
   });

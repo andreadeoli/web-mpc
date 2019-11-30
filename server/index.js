@@ -19,6 +19,7 @@ const jiff = require('./jiff/create.js');
 
 // Create express app
 const app = require('./app.js');
+const scheduler = require('./app/scheduleSessionExpirations.js');
 
 // Create either an http for staging or https server for production
 var server = production.create(app);
@@ -35,3 +36,6 @@ jiffWrapper.ready.then(function () {
 }).catch(function (err) {
   console.log('Error loading JIFF state', err);
 });
+
+
+scheduler.start(jiffWrapper);

@@ -14,7 +14,6 @@ let transporter = nodemailer.createTransport({
 
 module.exports.sendEmail = function (session, email, url) {
   modelWrappers.SessionInfo.get(session).then(function(data) {
-    let time = "November 29, 2019 at 12:00 PM EST";
 
     let mailOptions = {
       from: process.env.MODERATOR_EMAIL_USER,
@@ -23,7 +22,7 @@ module.exports.sendEmail = function (session, email, url) {
       html: format(HTML, {
         title: data.title,
         description: data.description,
-        time: time,
+        time: data.time,
         url: process.env.URL_BASE + url
       }),
     };
