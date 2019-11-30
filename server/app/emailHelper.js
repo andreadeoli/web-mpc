@@ -1,4 +1,7 @@
 const nodemailer = require('nodemailer');
+var format = require("string-template");
+const modelWrappers = require('../models/modelWrappers.js');
+
 module.exports = {};
 
 let transporter = nodemailer.createTransport({
@@ -9,22 +12,34 @@ let transporter = nodemailer.createTransport({
   }
 });
 
-module.exports.sendEmail = function (name, email, url) {
-  let mailOptions = {
-    from: process.env.MODERATOR_EMAIL_USER,
-    to: email,
-    subject: 'Election Participation URL',
-    html: HTML
-  };
+module.exports.sendEmail = function (session, email, url) {
+  modelWrappers.SessionInfo.get(session).then(function(data) {
+    let time = "November 29, 2019 at 12:00 PM EST";
 
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
-    }
+    let mailOptions = {
+      from: process.env.MODERATOR_EMAIL_USER,
+      to: email,
+      subject: '[Election] ' + data.title,
+      html: format(HTML, {
+        title: data.title,
+        description: data.description,
+        time: time,
+        url: process.env.URL_BASE + url
+      }),
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+
   });
 };
+
+
 let HTML = "<!doctype html>\n" +
   "<html xmlns=\"http://www.w3.org/1999/xhtml\" xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\">\n" +
   "\t<head>\n" +
@@ -516,7 +531,7 @@ let HTML = "<!doctype html>\n" +
   "}</style></head>\n" +
   "    <body>\n" +
   "\t\t<!--*|IF:MC_PREVIEW_TEXT|*-->\n" +
-  "\t\t<!--[if !gte mso 9]><!----><span class=\"mcnPreviewText\" style=\"display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;\">*|MC_PREVIEW_TEXT|*</span><!--<![endif]-->\n" +
+  "\t\t<!--[if !gte mso 9]><!----><span class=\"mcnPreviewText\" style=\"display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;\"></span><!--<![endif]-->\n" +
   "\t\t<!--*|END:IF|*-->\n" +
   "        <center>\n" +
   "            <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" height=\"100%\" width=\"100%\" id=\"bodyTable\">\n" +
@@ -569,10 +584,10 @@ let HTML = "<!doctype html>\n" +
   "                        \n" +
   "                        <td valign=\"top\" class=\"mcnTextContent\" style=\"padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;\">\n" +
   "                        \n" +
-  "                            <h3><strong>Jane Doe's Tenure Election</strong></h3>\n" +
-  "Jane Doe has been a faculty member for x years and has done y research. Participate in the election for her tenure case.<br>\n" +
+  "                            <h3><strong>{title}</strong></h3>\n" +
+  "{description}<br>\n" +
   "<br>\n" +
-  "Please cast your vote before November 29, 2019 at 12:00 PM EST.<br>\n" +
+  "Please cast your vote before {time}.<br>\n" +
   "&nbsp;\n" +
   "                        </td>\n" +
   "                    </tr>\n" +
@@ -614,7 +629,7 @@ let HTML = "<!doctype html>\n" +
   "                    <tbody>\n" +
   "                        <tr>\n" +
   "                            <td align=\"center\" valign=\"middle\" class=\"mcnButtonContent\" style=\"font-family: Helvetica; font-size: 18px; padding: 18px;\">\n" +
-  "                                <a class=\"mcnButton \" title=\"Proceed to Election\" href=\"https://www.google.com/maps\" target=\"_self\" style=\"font-weight: normal;letter-spacing: -0.5px;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;\">Proceed to Election</a>\n" +
+  "                                <a class=\"mcnButton \" title=\"Proceed to Election\" href=\"{url}\" target=\"_self\" style=\"font-weight: normal;letter-spacing: -0.5px;line-height: 100%;text-align: center;text-decoration: none;color: #FFFFFF;\">Proceed to Election</a>\n" +
   "                            </td>\n" +
   "                        </tr>\n" +
   "                    </tbody>\n" +

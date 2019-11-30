@@ -147,7 +147,7 @@ module.exports.createClientUrls = function (context, body, response, sessionInfo
       let name = participantInfo[i].name;
       let email = participantInfo[i].email;
       let url = '?session=' + body.session + '&participationCode=' + userkey;
-      emailHelper.sendEmail(name, email, url);
+      emailHelper.sendEmail(body.session, email, url);
 
       // Generate URL and add dbObject
       resultingInfos.push({
