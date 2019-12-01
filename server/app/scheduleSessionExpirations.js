@@ -6,11 +6,7 @@ module.exports.start = function (jiffWrapper) {
     modelWrappers.SessionInfo.all().then(function (data) {
       for (let i = 0; i < data.length; i++) {
         let sessionInfo = data[i];
-        console.log("getTime", sessionInfo.time.getTime());
         let sessionExpirationUTC = sessionInfo.time.getTime() + 5 * 60 * 60 * 1000;
-        console.log("expiration", sessionExpirationUTC);
-        console.log("now", Date.now());
-
         if (sessionInfo.status !== 'STOP' && sessionExpirationUTC < Date.now()) {
           sessionInfo.status = 'STOP';
           modelWrappers.SessionInfo.update(sessionInfo).then(() =>
