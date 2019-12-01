@@ -27,6 +27,10 @@ define(['jquery', 'controllers/analystController', 'table_template', 'Ladda', 'f
         });
       }, 2000);
 
+      analystController.checkTime(session, password).then(function (sessionInfo) {
+        $("#expiration_message").text("This election has an expiration of " + sessionInfo.time);
+      });
+
       var la = Ladda.create(document.getElementById('login'));
       la.start();
 

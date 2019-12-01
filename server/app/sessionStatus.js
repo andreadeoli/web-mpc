@@ -2,6 +2,7 @@
  * Route endpoints for session status and history: getting and setting status, querying for NON-LEAKY submission history.
  * The endpoints are executed AFTER payload validation and authentication are successful.
  */
+const strftime = require('strftime');
 
 // DB Operation Wrappers
 const modelWrappers = require('../models/modelWrappers.js');
@@ -20,6 +21,20 @@ module.exports.getStatus = function (context, body, res) {
   }).catch(function (err) {
     console.log('Error in getting session status', err);
     res.status(500).send('Error getting session status.');
+  });
+};
+
+// endpoint for getting the time
+module.exports.getTime = function (context, body, res) {
+  var promise = modelWrappers.SessionInfo.get(body.session);
+
+  promise.then(function (data) {
+    let STRFTIME_FORMAT_STRING = "%A %B %e, %Y at %l:%M %p";
+    let time = strftime(STRFTIME_FORMAT_STRING, data.time) + " EST";
+    res.json({time: time});
+  }).catch(function (err) {
+    console.log('Error in getting session time', err);
+    res.status(500).send('Error getting session time.');
   });
 };
 

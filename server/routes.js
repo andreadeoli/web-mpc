@@ -34,6 +34,7 @@ module.exports = [
 
   // Session status and history routes
   { url: '/fetch_status', route: sessionStatusRoutes.getStatus, validation: validation.getStatus },
+  { url: '/fetch_time', route: sessionStatusRoutes.getTime, validation: validation.getStatus },
   { url: '/change_status', route: sessionStatusRoutes.setStatus, validation: validation.setStatus, authentication: auth.password },
   { url: '/get_history', route: sessionStatusRoutes.getSubmissionHistory, validation: validation.getSubmissionHistory, authentication: auth.password },
   { url: '/get_voting_record', route: sessionStatusRoutes.getVotingRecord, validation: validation.getCohortsManage, authentication: auth.password },

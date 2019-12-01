@@ -42,6 +42,23 @@ define(['pki', 'alertHandler'], function (pki, alertHandler) {
     });
   }
 
+  function checkTime(session, password) {
+    if (!session || session.trim() === '' || !password) {
+      return $.Deferred().reject();
+    }
+
+    return $.ajax({
+      type: 'POST',
+      url: '/fetch_time',
+      contentType: 'application/json',
+      data: JSON.stringify({session: session})
+    }).then(function (resp) {
+      return resp;
+    }).catch(function (err) {
+      throw new Error(err.responseText);
+    });
+  }
+
   function changeStatus(session, password, status) {
     if (status === 'START' || status === 'PAUSE' || status === 'STOP') {
       return $.ajax({
@@ -213,6 +230,7 @@ define(['pki', 'alertHandler'], function (pki, alertHandler) {
 
   return {
     checkStatus: checkStatus,
+    checkTime: checkTime,
     changeStatus: changeStatus,
     getVotingRecord: getVotingRecord,
     generateNewParticipationCodes: generateNewParticipationCodes,
