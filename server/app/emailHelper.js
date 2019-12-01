@@ -1,8 +1,11 @@
 const nodemailer = require('nodemailer');
 var format = require("string-template");
 const modelWrappers = require('../models/modelWrappers.js');
+const strftime = require('strftime');
 
 module.exports = {};
+
+const STRFTIME_FORMAT_STRING = "%A %B %e, %Y at %l:%M %p";
 
 let transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -22,7 +25,7 @@ module.exports.sendEmail = function (session, email, url) {
       html: format(HTML, {
         title: data.title,
         description: data.description,
-        time: data.time.toUTCString(),
+        time: strftime(STRFTIME_FORMAT_STRING, data.time) + " EST",
         url: process.env.URL_BASE + url
       }),
     };
