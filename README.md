@@ -15,7 +15,7 @@ Inside the virual machine, run the one-time installation script:
 ```
 To start the application each time, run:
 ```
-cd /vagrant/web-mpc
+cd /vagrant/
 sudo service mongod start
 MODERATOR_EMAIL_USER="example@yale.edu" MODERATOR_EMAIL_PASS="password" URL_BASE="https://yourdomain.com" node server/index.js
 ```
@@ -44,7 +44,7 @@ Instructions on how to operate the application. All steps below are performed in
 
 #### Retrieve the result
 
-* Stop the session in `localhost:8080/manage`.
+* Stop the session in `yourdomain.com/manage`.
 * Click the **unmask** link.
 * Paste the session key and password in its designated fields.
 * Click **Browse** and upload the private key file that was downloaded when generating the session key.
