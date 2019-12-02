@@ -17,7 +17,7 @@ To start the application each time, run:
 ```
 cd /vagrant/
 sudo service mongod start
-MODERATOR_EMAIL_USER="example@yale.edu" MODERATOR_EMAIL_PASS="password" URL_BASE="https://yourdomain.com" node server/index.js
+MODERATOR_EMAIL_USER="example@yale.edu" MODERATOR_EMAIL_PASS="password" URL_BASE="http://localhost:8080" node server/index.js
 ```
 MODERATOR_EMAIL_USER and MODERATOR_EMAIL_PASS specify login credentials for the email account which will send voting invitations to specified participants. If using gmail, enable logins from less secure apps.  
 
@@ -29,12 +29,12 @@ Instructions on how to operate the application. All steps below are performed in
 
 #### Generate session key
 
-* Navigate to `yourdomain.com/create`.
+* Navigate to `localhost:8080/create`.
 * Click on **Generate Session** and save the two given files, one contains the session key and password which are needed for managing the session. The other contains a secret key needed to unmask the aggregate.
 
 #### Manage session
 
-* Navigate to `yourdomain.com/manage`.
+* Navigate to `localhost:8080/manage`.
 * Input your session key and password.
 * Specify participant names and emails.
 
@@ -44,7 +44,7 @@ Instructions on how to operate the application. All steps below are performed in
 
 #### Retrieve the result
 
-* Stop the session in `yourdomain.com/manage`.
+* Stop the session in `localhost:8080/manage`.
 * Click the **unmask** link.
 * Paste the session key and password in its designated fields.
 * Click **Browse** and upload the private key file that was downloaded when generating the session key.
