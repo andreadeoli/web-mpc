@@ -5,7 +5,7 @@ Implementation of a simple online election using secure multi-party computation.
 
 ## Local machine installation
 
-This project uses `vagrant`, which can be installed with `sudo apt install vagrant` along with a VMM such as VirtualBox. To load the vagrant and ssh into the vagrant vm:
+This project uses `vagrant`, which can be installed with `sudo apt install virtualbox vagrant`. To load the vagrant and ssh into the vagrant vm:
 ```
 vagrant up && vagrant ssh
 ```
