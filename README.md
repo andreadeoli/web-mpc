@@ -5,6 +5,8 @@ Implementation of a simple online election using secure multi-party computation.
 
 ## Local machine installation
 
+To get started, clone this repository and cd into `web-mpc`.
+
 This project uses `vagrant`, which can be installed with `sudo apt install virtualbox vagrant`. To load the vagrant and ssh into the vagrant vm:
 ```
 vagrant up && vagrant ssh
