@@ -6,7 +6,7 @@ const driverWrapper = require('./helpers/driver.js');
 const compute = require('./helpers/compute.js');
 const csv = require('./helpers/csv.js');
 
-const tableTemplate = require('../../client/app/data/bwwc.js');
+const tableTemplate = require('../../client/app/data/election.js');
 
 // import test API
 const session = require('./api/session.js');
@@ -14,9 +14,9 @@ const manage = require('./api/manage.js');
 const submission = require('./api/submission.js');
 const unmasking = require('./api/unmasking.js');
 
-const UPLOAD_FILE = '/test/selenium/files/bwwc.xlsx';
+const UPLOAD_FILE = '/test/selenium/files/election.xlsx';
 
-describe('BWWC Tests', function () {
+describe('Election Tests', function () {
   // Create the chrome driver before tests and close it after tests
   before(function () {
     driverWrapper.create();
