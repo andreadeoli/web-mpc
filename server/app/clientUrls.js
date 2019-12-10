@@ -48,6 +48,10 @@ module.exports.createNewCohort = function (context, body, response, sessionInfoO
   });
 };
 
+module.exports.sendResultEmails = function(context, body, res) {
+  console.log("hello");
+}
+
 // Need to get cohorts from multiple locations
 module.exports.getCohorts = function (context, body, res) {
   var promise = modelWrappers.SessionInfo.get(body.session);

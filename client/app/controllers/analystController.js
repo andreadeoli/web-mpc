@@ -221,6 +221,23 @@ define(['pki', 'alertHandler'], function (pki, alertHandler) {
       });
   }
 
+  function sendResultEmail(session, password) {
+    return $.ajax({
+      type: 'POST',
+      url: '/send_result_emails',
+      contentType: 'application/json',
+      data: JSON.stringify({session: session, password: password}),
+    })
+      .then(function (res) {
+        return res;
+      })
+      .catch(function (err) {
+        if (err && err.hasOwnProperty('responseText') && err.responseText !== undefined) {
+          alertHandler.error(err.responseText);
+        }
+      });
+  }
+
   function getParameterByName(name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)'),
@@ -233,6 +250,7 @@ define(['pki', 'alertHandler'], function (pki, alertHandler) {
     checkTime: checkTime,
     changeStatus: changeStatus,
     getVotingRecord: getVotingRecord,
+    sendResultEmail: sendResultEmail,
     generateNewParticipationCodes: generateNewParticipationCodes,
     getExistingParticipants: getExistingParticipants,
     getExistingCohorts: getExistingCohorts,

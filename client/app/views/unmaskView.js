@@ -85,6 +85,7 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
 
               $('#send-results').on('click', function (e) {
                 e.preventDefault();
+                analystController.sendResultEmail(sessionKey, sessionPass);
                 console.log("hi");
               });
 

@@ -44,5 +44,8 @@ module.exports = [
   { url: '/get_cohorts_manage', route: clientURLsRoutes.getCohorts, validation: validation.getCohortsManage, authentication: auth.password},
   { url: '/generate_client_urls', route: clientURLsRoutes.createClientUrls, validation: validation.createClientUrls, authentication: auth.password },
   { url: '/get_client_urls', route: clientURLsRoutes.getClientUrls, validation: validation.getClientUrls, authentication: auth.password },
-  { url: '/get_participant_info', route: clientURLsRoutes.getParticipantInfo, validation: validation.getClientUrls, authentication: auth.password }
+  { url: '/get_participant_info', route: clientURLsRoutes.getParticipantInfo, validation: validation.getClientUrls, authentication: auth.password },
+
+  // Route to send election results via email
+  { url: '/send_result_emails', route: clientURLsRoutes.sendResultEmails, validation: validation.getCohortsManage, authentication: auth.password },
 ];
