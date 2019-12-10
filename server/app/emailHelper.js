@@ -41,19 +41,23 @@ module.exports.sendEmail = function (session, email, url) {
   });
 };
 
-module.exports.sendResultEmail = function () {
-  let mailOptions = {
-    from: process.env.MODERATOR_EMAIL_USER,
-    to: 'andreadeoli@gmail.com',
-    subject: '[Election]',
-    html: resultEmailHTML,
-  };
+module.exports.sendResultEmail = function (session) {
+  modelWrappers.UserKey.query(session).then(function(data) {
+    for (let d of data) {
+      let mailOptions = {
+        from: process.env.MODERATOR_EMAIL_USER,
+        to: d.email,
+        subject: '[Election]',
+        html: resultEmailHTML,
+      };
 
-  transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-      console.log(error);
-    } else {
-      console.log('Email sent: ' + info.response);
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
     }
   });
 };
