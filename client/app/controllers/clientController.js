@@ -175,7 +175,7 @@ define(['jquery', 'controllers/tableController', 'controllers/jiffController', '
           }
 
           // Pacesetters deployment does not use this validator in the template
-          // this will only affect BWWC
+          // this will only affect election
           tableController.registerValidator('discrepancies', function (table, cell, value, callback) {
             checkSemanticDiscrepancies(tables, table, cell, value, callback);
           });

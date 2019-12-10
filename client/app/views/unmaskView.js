@@ -44,6 +44,7 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
             console.log(result);
             $('#tables-area').show();
             $('#participant-list').show();
+            $('#email-buttons').show();
 
             spinner.stop();
 
@@ -72,6 +73,25 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
                 $('<p>').text(nameEmailStrings[i])
                   .appendTo(participantContainer);
               }
+
+              var emailContainer = $('#email-buttons');
+              $('<button type="button" id="send-results" class="btn btn-primary btn-lg">Email Result</button>')
+                .appendTo(emailContainer);
+              $('<br><br>')
+                .appendTo(emailContainer);
+              $('<button type="button" id="send-results-and-participant-info" class="btn btn-primary btn-lg">Email Result & Participant Info</button>')
+                .appendTo(emailContainer);
+
+
+              $('#send-results').on('click', function (e) {
+                e.preventDefault();
+                console.log("hi");
+              });
+
+              $('#send-results-and-participant-info').on('click', function (e) {
+                e.preventDefault();
+                console.log("ho");
+              });
             });
           });
         });
@@ -101,8 +121,11 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
       $(document).ready(function () {
         $('#tables-area').hide();
         $('#participant-list').hide();
+        $('#email-buttons').hide();
         expandTable("#expand-table-button", '#tables-area');
         expandTable("#expand-participant-list", '#participant-list');
+        expandTable("#expand-email-area", '#email-buttons');
+
 
         var _target = document.getElementById('drop-area');
         var _choose = document.getElementById('choose-file-button');

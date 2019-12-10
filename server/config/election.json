@@ -1,5 +1,5 @@
 {
-  "template": "../client/app/data/bwwc",
+  "template": "../client/app/data/election",
   "MAX_SIZE": 10000,
 
   "webRootPath": "/tmp/acme-challenges",
@@ -14,7 +14,7 @@
   },
 
   "client": {
-    "table_template": "data/bwwc",
+    "table_template": "data/election",
     "organization": "Yale Department of Computer Science",
     "subtitle": "Vote Submission",
     "cohort": "Vote",

@@ -1,6 +1,6 @@
 let deployment = process.env.WEBMPC_DEPLOYMENT;
 if (deployment === null || deployment === undefined) {
-  deployment = 'bwwc';
+  deployment = 'election';
 }
 
 module.exports = require('./' + deployment + '.json');

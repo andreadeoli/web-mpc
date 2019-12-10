@@ -44,6 +44,6 @@ rm -rf $BACKUP_NAME
 find $BACKUPS_DIR -type f -mtime +$DAYS_TO_RETAIN_BACKUP -exec rm {} +
 # Upload to AWS
 echo "Uploading $BACKUPS_DIR/$BACKUP_NAME to AWS"
-aws s3 cp $BACKUPS_DIR/$BACKUP_NAME.tgz s3://bwwc
+aws s3 cp $BACKUPS_DIR/$BACKUP_NAME.tgz s3://election
 echo "--------------------------------------------"
 echo "Database backup complete!"
