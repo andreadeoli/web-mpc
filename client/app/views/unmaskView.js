@@ -82,10 +82,9 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
               $('<button type="button" id="send-results-and-participant-info" class="btn btn-primary btn-lg">Email Result & Participant Info</button>')
                 .appendTo(emailContainer);
 
-
               $('#send-results').on('click', function (e) {
                 e.preventDefault();
-                analystController.sendResultEmail(sessionKey, sessionPass);
+                analystController.sendResultEmail(sessionKey, sessionPass, nameEmailStrings);
                 console.log("hi");
               });
 

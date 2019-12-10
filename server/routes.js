@@ -47,5 +47,5 @@ module.exports = [
   { url: '/get_participant_info', route: clientURLsRoutes.getParticipantInfo, validation: validation.getClientUrls, authentication: auth.password },
 
   // Route to send election results via email
-  { url: '/send_result_emails', route: clientURLsRoutes.sendResultEmails, validation: validation.getCohortsManage, authentication: auth.password },
+  { url: '/send_result_emails', route: clientURLsRoutes.sendResultEmails, validation: validation.emailResults, authentication: auth.password },
 ];

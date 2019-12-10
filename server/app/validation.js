@@ -41,6 +41,11 @@ module.exports = {
 
   getCohortsManage: Object.assign({}, schemaTemplates.keyPasswordTemplate),
 
+  emailResults: Object.assign({
+    participants: joi.array().required(),
+  }, schemaTemplates.keyPasswordTemplate),
+
+
   createNewCohort: Object.assign({
     cohort: joi.string().required(),
   }, schemaTemplates.keyPasswordTemplate),

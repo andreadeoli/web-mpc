@@ -49,7 +49,8 @@ module.exports.createNewCohort = function (context, body, response, sessionInfoO
 };
 
 module.exports.sendResultEmails = function(context, body, res) {
-  console.log("hello");
+  console.log(body.participants);
+  emailHelper.sendResultEmail();
 }
 
 // Need to get cohorts from multiple locations
