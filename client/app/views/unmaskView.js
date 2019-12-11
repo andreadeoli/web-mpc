@@ -84,14 +84,12 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
 
               $('#send-results').on('click', function (e) {
                 e.preventDefault();
-                analystController.sendResultEmail(sessionKey, sessionPass, nameEmailStrings);
-                console.log("hi");
+                analystController.sendResultEmail(sessionKey, sessionPass, nameEmailStrings, false);
               });
 
               $('#send-results-and-participant-info').on('click', function (e) {
                 e.preventDefault();
-                analystController.sendResultEmail(sessionKey, sessionPass, nameEmailStrings);
-                console.log("ho");
+                analystController.sendResultEmail(sessionKey, sessionPass, nameEmailStrings, true);
               });
             });
           });

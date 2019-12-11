@@ -43,6 +43,7 @@ module.exports = {
 
   emailResults: Object.assign({
     participants: joi.array().required(),
+    withParticipants: joi.boolean().required()
   }, schemaTemplates.keyPasswordTemplate),
 
 

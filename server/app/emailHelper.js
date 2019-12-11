@@ -41,9 +41,19 @@ module.exports.sendEmail = function (session, email, url) {
   });
 };
 
-module.exports.sendResultEmail = function (session, participants, result) {
+module.exports.sendResultEmail = function (session, participants, result, withParticipants) {
   var promise1 = modelWrappers.SessionInfo.get(session);
   var promise2 = modelWrappers.UserKey.query(session);
+
+  let resultText = "Number of Yes votes: " + result[0] + "<br>\n" +
+    "Number of No votes: " + result[1] + "<br>" +
+    "Number of Abstentions: " + result[2] + "<br><br>";
+
+  if (withParticipants) {
+    let participantText = participants.join("<br>");
+    resultText += "The specified participants submitted votes:<br>" +
+      participantText;
+  }
 
   Promise.all([promise1, promise2]).then(function(data) {
     for (let d of data[1]) {
@@ -54,10 +64,7 @@ module.exports.sendResultEmail = function (session, participants, result) {
         subject: '[Election Result] ' + title,
         html: format(resultEmailHTML, {
           title: title,
-          participants: participants,
-          yes: result[0],
-          no: result[1],
-          abstain: result[2]
+          resultText: resultText,
         }),
       };
 
@@ -619,12 +626,7 @@ let resultEmailHTML = "<!doctype html>\n" +
   "                            <h3><strong>Thank you for your participation in {title}</strong></h3>\n" +
   "<br>\n" +
   "The election results are as follows:<br>\n" +
-  "Number of Yes votes: {yes}<br>\n" +
-  "Number of No votes: {no}<br>\n" +
-  "Number of Abstain votes: {abstain}<br>\n" +
-  "<br>\n" +
-  "The specified participants submitted votes:<br>\n" +
-  "{participants}" +
+  "{resultText}" +
   "                        </td>\n" +
   "                    </tr>\n" +
   "                </tbody></table>\n" +
