@@ -41,14 +41,24 @@ module.exports.sendEmail = function (session, email, url) {
   });
 };
 
-module.exports.sendResultEmail = function (session) {
-  modelWrappers.UserKey.query(session).then(function(data) {
-    for (let d of data) {
+module.exports.sendResultEmail = function (session, participants, result) {
+  var promise1 = modelWrappers.SessionInfo.get(session);
+  var promise2 = modelWrappers.UserKey.query(session);
+
+  Promise.all([promise1, promise2]).then(function(data) {
+    for (let d of data[1]) {
+      let title = data[0].title;
       let mailOptions = {
         from: process.env.MODERATOR_EMAIL_USER,
         to: d.email,
-        subject: '[Election]',
-        html: resultEmailHTML,
+        subject: '[Election Result] ' + title,
+        html: format(resultEmailHTML, {
+          title: title,
+          participants: participants,
+          yes: result[0],
+          no: result[1],
+          abstain: result[2]
+        }),
       };
 
       transporter.sendMail(mailOptions, function(error, info){
@@ -553,7 +563,7 @@ let resultEmailHTML = "<!doctype html>\n" +
   "}</style></head>\n" +
   "    <body>\n" +
   "\t\t<!--*|IF:MC_PREVIEW_TEXT|*-->\n" +
-  "\t\t<!--[if !gte mso 9]><!----><span class=\"mcnPreviewText\" style=\"display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;\">*|MC_PREVIEW_TEXT|*</span><!--<![endif]-->\n" +
+  "\t\t<!--[if !gte mso 9]><!----><span class=\"mcnPreviewText\" style=\"display:none; font-size:0px; line-height:0px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; visibility:hidden; mso-hide:all;\"></span><!--<![endif]-->\n" +
   "\t\t<!--*|END:IF|*-->\n" +
   "        <center>\n" +
   "            <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" height=\"100%\" width=\"100%\" id=\"bodyTable\">\n" +
@@ -606,16 +616,15 @@ let resultEmailHTML = "<!doctype html>\n" +
   "                        \n" +
   "                        <td valign=\"top\" class=\"mcnTextContent\" style=\"padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;\">\n" +
   "                        \n" +
-  "                            <h3><strong>Thank you for your participation in Jane Doe's Tenure Election</strong></h3>\n" +
+  "                            <h3><strong>Thank you for your participation in {title}</strong></h3>\n" +
   "<br>\n" +
   "The election results are as follows:<br>\n" +
-  "Number of Yes votes: 0<br>\n" +
-  "Number of No votes: 0<br>\n" +
-  "Number of Abstain votes: 1<br>\n" +
+  "Number of Yes votes: {yes}<br>\n" +
+  "Number of No votes: {no}<br>\n" +
+  "Number of Abstain votes: {abstain}<br>\n" +
   "<br>\n" +
   "The specified participants submitted votes:<br>\n" +
-  "Andrea de Oliveira, andreadeoli@gmail.com<br>\n" +
-  "Joan Feigenbaum, joan.feigenbaum@yale.edu\n" +
+  "{participants}" +
   "                        </td>\n" +
   "                    </tr>\n" +
   "                </tbody></table>\n" +
