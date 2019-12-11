@@ -221,12 +221,12 @@ define(['pki', 'alertHandler'], function (pki, alertHandler) {
       });
   }
 
-  function sendResultEmail(session, password, participants, withParticipants) {
+  function sendResultEmail(session, password, result, participants, shouldSendParticipants) {
     return $.ajax({
       type: 'POST',
       url: '/send_result_emails',
       contentType: 'application/json',
-      data: JSON.stringify({session: session, password: password, participants: participants, withParticipants: withParticipants}),
+      data: JSON.stringify({session: session, password: password, result: result, participants: participants, shouldSendParticipants: shouldSendParticipants}),
     })
       .then(function (res) {
         return res;

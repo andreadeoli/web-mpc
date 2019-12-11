@@ -74,6 +74,12 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
                   .appendTo(participantContainer);
               }
 
+              let hoTable = window.__tables[0];
+              let result = [];
+              for(let i = 0; i < 3; i++) {
+                result.push(hoTable.getDataAtCell(0, i).c[0]);
+              }
+
               var emailContainer = $('#email-buttons');
               $('<button type="button" id="send-results" class="btn btn-primary btn-lg">Email Result</button>')
                 .appendTo(emailContainer);
@@ -84,12 +90,12 @@ define(['jquery', 'controllers/jiffController', 'controllers/tableController', '
 
               $('#send-results').on('click', function (e) {
                 e.preventDefault();
-                analystController.sendResultEmail(sessionKey, sessionPass, nameEmailStrings, false);
+                analystController.sendResultEmail(sessionKey, sessionPass, result, nameEmailStrings, false);
               });
 
               $('#send-results-and-participant-info').on('click', function (e) {
                 e.preventDefault();
-                analystController.sendResultEmail(sessionKey, sessionPass, nameEmailStrings, true);
+                analystController.sendResultEmail(sessionKey, sessionPass, result, nameEmailStrings, true);
               });
             });
           });

@@ -41,7 +41,7 @@ module.exports.sendEmail = function (session, email, url) {
   });
 };
 
-module.exports.sendResultEmail = function (session, participants, result, withParticipants) {
+module.exports.sendResultEmail = function (session, participants, result, shouldSendParticipants) {
   var promise1 = modelWrappers.SessionInfo.get(session);
   var promise2 = modelWrappers.UserKey.query(session);
 
@@ -49,7 +49,7 @@ module.exports.sendResultEmail = function (session, participants, result, withPa
     "Number of No votes: " + result[1] + "<br>" +
     "Number of Abstentions: " + result[2] + "<br><br>";
 
-  if (withParticipants) {
+  if (shouldSendParticipants) {
     let participantText = participants.join("<br>");
     resultText += "The specified participants submitted votes:<br>" +
       participantText;
